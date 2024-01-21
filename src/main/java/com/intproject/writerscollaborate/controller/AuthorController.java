@@ -4,6 +4,9 @@ import com.intproject.writerscollaborate.service.AuthorService;
 import com.intproject.writerscollaborate.entity.Book;
 import com.intproject.writerscollaborate.entity.AuthorEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -23,6 +26,24 @@ public class AuthorController {
 
     @Autowired
     private AuthorService authorService;
+
+    @GetMapping("/authors")
+    public ResponseEntity<List<AuthorEntity>> getAuthors(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int pageSize
+    ) {
+        Pageable pageable = PageRequest.of(page, pageSize);
+        Page<AuthorEntity> authorsPage;
+        authorsPage = authorService.getAuthors(pageable);
+
+        List<AuthorEntity> authors = authorsPage.getContent();
+        if (authors.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(authors, HttpStatus.OK);
+        }
+    }
+
 
     @PostMapping("/authors/create")
     public ResponseEntity<AuthorEntity> createAuthor(@RequestBody AuthorEntity author) {

@@ -4,6 +4,9 @@ import com.intproject.writerscollaborate.entity.AuthorEntity;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -49,6 +52,11 @@ public class AuthorService {
     public List<AuthorEntity> getAuthorsByName(String authorName) {
         return authorRepository.findByAuthorName(authorName);
     }
+
+    public Page<AuthorEntity> getAuthors(Pageable pageable) {
+        return authorRepository.findAll(pageable);
+    }
+
 }
 
 

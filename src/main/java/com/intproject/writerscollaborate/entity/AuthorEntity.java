@@ -16,40 +16,15 @@ public class AuthorEntity {
     private String id;
 
     @Field(value = "author_name")
-    @JsonProperty("author_name")
     private String authorName;
 
     @Field(value = "age")
-    @JsonProperty("age")
     private Integer age;
 
     @Field(value = "email")
-    @JsonProperty("email")
     private String email;
 
     @Field(value = "books")
-    @JsonProperty("books")
     private List<Book> books;
-
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setAuthorName(String value) {
-        this.authorName = value;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setBooks(List<Book> books) {
-        this.books = books;
-    }
 
 }
